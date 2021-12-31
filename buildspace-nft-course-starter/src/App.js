@@ -10,7 +10,7 @@ const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = 'https://testnets.opensea.io/collection/squarenft-1rjyvxv3du';
 const TOTAL_MINT_COUNT = 10;
-const CONTRACT_ADDRESS = "0xe70b6AF800175BABbA4c39Bd5347b079A1a699A9";
+const CONTRACT_ADDRESS = "0xc3D69EE7ABCadaA1b969448Cb6AaD81af236c19a";
 
 
 function App() {
@@ -147,7 +147,7 @@ function App() {
         const connectedContract = await connectToContract(ethereum)
   
         console.log("Going to pop wallet now to pay gas...")
-        let nftTxn = await connectedContract.makeAnEpicNFT();
+        let nftTxn = await connectedContract.makeAnEpicNFT({value: ethers.utils.parseEther("0.0001")});
   
         console.log("Mining...please wait.")
         await nftTxn.wait();

@@ -28,7 +28,7 @@ contract AwesomeSauce3Words is ERC721URIStorage, Ownable {
     string[] thirdWords = ["King", "Duke", "Starman", "Stargirl", "Champion", "Queen", "Princess", "Gladiator", "Warrior", "Priestess", "Priest", "Bishop", "Legionnaire", "Jester", "Knight", "Blacksmith"];
     
     constructor() ERC721("AwesomeSauce", "3WORDS") {
-        console.log("This is my NFT contract. Whoa!");
+        // console.log("This is my NFT contract. Whoa!");
     }
 
     // I create a function to randomly pick a word from each array.
@@ -60,9 +60,9 @@ contract AwesomeSauce3Words is ERC721URIStorage, Ownable {
         return _tokenIds.current();
     }
 
-    function makeAnEpicNFT() public payable {
-        require(_tokenIds.current() < maxNftCap);
-        require(msg.value == 0.01 ether, "Need to pay 0.01 ether for this purchase");
+    function makeAnEpicNFT() public payable onlyOwner {
+        require(_tokenIds.current() < maxNftCap, "Max Cap of NFTs already minted");
+        require(msg.value == 0.0001 ether, "Need to pay 0.0001 ether for this purchase");
 
         uint256 newItemId = _tokenIds.current();
 
@@ -95,9 +95,9 @@ contract AwesomeSauce3Words is ERC721URIStorage, Ownable {
             abi.encodePacked("data:application/json;base64,", json)
         );
 
-        console.log("\n--------------------");
-        console.log(finalTokenUri);
-        console.log("--------------------\n");
+        // console.log("\n--------------------");
+        // console.log(finalTokenUri);
+        // console.log("--------------------\n");
 
         _safeMint(msg.sender, newItemId);
         
@@ -105,7 +105,7 @@ contract AwesomeSauce3Words is ERC721URIStorage, Ownable {
         _setTokenURI(newItemId, finalTokenUri);
     
         _tokenIds.increment();
-        console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
+        // console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
         
         emit NewEpicNFTMinted(msg.sender, newItemId);
     }
